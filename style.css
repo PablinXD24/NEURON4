@@ -1,0 +1,110 @@
+/* style.css */
+
+:root {
+  --bar-length: 360px; /* Comprimento da barra */
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #191c29;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+}
+
+.container {
+  display: flex;
+}
+
+.letter {
+  font-size: 5rem;
+  font-weight: 900;
+  opacity: 0;
+  transform: scale(0.5);
+  transform-origin: center center;
+  animation: fadeInScale 0.5s ease forwards;
+  animation-delay: calc(0.1s * var(--index));
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.letter:nth-child(1) { text-shadow: 0px 0px 20px #37617A; }
+.letter:nth-child(2) { text-shadow: 0px 0px 20px #378c4b; }
+.letter:nth-child(3) { text-shadow: 0px 0px 20px #29FA10; }
+.letter:nth-child(4) { text-shadow: 0px 0px 20px #f2ca50; }
+.letter:nth-child(5) { text-shadow: 0px 0px 20px #f23839; }
+.letter:nth-child(6) { text-shadow: 0px 0px 20px #37617A; }
+
+/* Estilo da barra de luz */
+.light-bar {
+  width: var(--bar-length); /* Utiliza a variável para definir a largura da barra */
+  height: 4px;
+  background-color: #ffffff; /* Cor inicial branca */
+  margin-top: 20px;
+  border-radius: 2px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  position: relative;
+  overflow: hidden;
+  animation: whiteFill 2s forwards, colorFill 5s 2s forwards; /* Animações encadeadas */
+}
+
+/* Animação de preenchimento branco */
+@keyframes whiteFill {
+  0% { width: 0; }
+  100% { width: var(--bar-length); } /* Utiliza a variável para o comprimento */
+}
+
+/* Preenchimento colorido após a barra branca */
+.light-bar::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: linear-gradient(90deg, #37617A, #378c4b, #29FA10, #f2ca50, #f23839);
+  background-size: 300%;
+  opacity: 0; /* Inicialmente invisível */
+  animation: rgbEffect 5s infinite linear;
+  animation-delay: 2s; /* Inicia após o preenchimento branco */
+  opacity: 1; /* Faz a transição do branco para o colorido */
+}
+
+/* Animação RGB para a barra */
+@keyframes rgbEffect {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 0%; }
+}
+
+/* Brilho da barra colorida */
+.light-bar::after {
+  box-shadow: 
+    0 0 10px #37617A, 
+    0 0 10px #378c4b, 
+    0 0 10px #29FA10, 
+    0 0 10px #f2ca50, 
+    0 0 10px #f23839; /* Adiciona um brilho correspondente às cores */
+}
+
+.subtitle {
+    margin-top: 0px;
+    font-size: 1rem; /* Tamanho da fonte */
+    color: white; /* Cor do texto */
+    text-align: center; /* Centraliza o texto */
+    text-shadow: 
+        0 0 10px white, /* Brilho */
+        0 0 20px white; /* Efeito de brilho mais forte */
+}
